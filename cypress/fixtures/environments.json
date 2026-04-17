@@ -2,7 +2,6 @@
     "qa": {
         "name": "qa",
         "apiUrl": "https://api.gateway.qa.mdm-hub.com.br",
-        "loginEndpoint": "/api-acl/authentication/login",
         "users": {
             "validUser": {
                 "usernameValid": "wesley.rodrigues@amazonasinovare.com.br",
@@ -19,28 +18,25 @@
         }
     },
     "dev": {
-        "name": "dev",
         "apiUrl": "https://api.gateway.dev.mdm-hub.com.br",
-        "loginEndpoint": "/api-acl/authentication/login",
         "users": {
-            "validUser": {
-                "usernameValid": "wesley.rodrigues@amazonasinovare.com.br",
-                "passwordValid": "Tectoy2026@"
-            },
-            "invalidUser": {
-                "usernameInvalid": "invalido@teste.com",
-                "passwordInvalid": "senhaerrada"
-            },
             "rootUser": {
                 "usernameValid": "root",
                 "passwordValid": "Tectoy@2024"
+            },
+            "validUser": {
+                "usernameValid": "usuario_valido",
+                "passwordValid": "senha_valida"
+            },
+            "invalidUser": {
+                "usernameValid": "usuario_invalido",
+                "passwordValid": "senha_invalida"
             }
         }
     },
     "production": {
         "name": "production",
         "apiUrl": "https://api.gateway.mdm-hub.com.br",
-        "loginEndpoint": "/api-acl/authentication/login",
         "users": {
             "validUser": {
                 "usernameValid": "wesley.rodrigues@amazonasinovare.com.br",
@@ -59,7 +55,6 @@
     "hml": {
         "name": "hml",
         "apiUrl": "https://api.gateway.hml.mdm-hub.com.br",
-        "loginEndpoint": "/api-acl/authentication/login",
         "users": {
             "validUser": {
                 "usernameValid": "",

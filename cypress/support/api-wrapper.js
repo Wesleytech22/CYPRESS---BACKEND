@@ -1,3 +1,4 @@
+// cypress/support/api-wrapper.js
 class ApiWrapper {
     constructor() {
         this.environments = null
@@ -21,6 +22,10 @@ class ApiWrapper {
         return this
     }
 
+    getApiUrl() {
+        return this.getCurrent().apiUrl
+    }
+
     getCurrent() {
         const envName = this.currentEnvironment || Cypress.env('environment') || 'production'
         return this.environments[envName]
@@ -35,7 +40,11 @@ class ApiWrapper {
     }
 
     getLoginEndpoint() {
-        return this.getCurrent().loginEndpoint || '/api-acl/authentication/login'
+        return '/api-acl/authentication/login'
+    }
+
+    getCorporationEndpoint() {
+        return '/api-acl/corporation'
     }
 
     getValidUser() {

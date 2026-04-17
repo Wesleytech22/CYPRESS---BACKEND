@@ -1,4 +1,4 @@
-import api from '../../support/api-wrapper'
+import api from '../support/api-wrapper'
 
 describe('Multi-Environment Tests', () => {
     before(() => {

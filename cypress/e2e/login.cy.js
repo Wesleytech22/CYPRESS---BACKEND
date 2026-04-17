@@ -1,4 +1,4 @@
-import api from '../../support/api-wrapper'
+import api from '../support/api-wrapper'
 
 describe('Login API - Backend', () => {
     let environment = Cypress.env('environment') || 'dev'
