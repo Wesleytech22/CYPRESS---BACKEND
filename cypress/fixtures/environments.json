@@ -1,7 +1,7 @@
 {
     "qa": {
         "name": "qa",
-        "apiUrl": "https://api.gateway.qa.mdm-hub.com",
+        "apiUrl": "https://api.gateway.qa.mdm-hub.com.br",
         "loginEndpoint": "/api-acl/authentication/login",
         "users": {
             "validUser": {
@@ -11,12 +11,16 @@
             "invalidUser": {
                 "usernameInvalid": "invalido@teste.com",
                 "passwordInvalid": "senhaerrada"
+            },
+            "rootUser": {
+                "usernameValid": "root",
+                "passwordValid": "Tectoy@2024"
             }
         }
     },
     "dev": {
         "name": "dev",
-        "apiUrl": "https://api.gateway.dev.mdm-hub.com",
+        "apiUrl": "https://api.gateway.dev.mdm-hub.com.br",
         "loginEndpoint": "/api-acl/authentication/login",
         "users": {
             "validUser": {
@@ -26,12 +30,16 @@
             "invalidUser": {
                 "usernameInvalid": "invalido@teste.com",
                 "passwordInvalid": "senhaerrada"
+            },
+            "rootUser": {
+                "usernameValid": "root",
+                "passwordValid": "Tectoy@2024"
             }
         }
     },
     "production": {
         "name": "production",
-        "apiUrl": "https://api.gateway.mdm-hub.com",
+        "apiUrl": "https://api.gateway.mdm-hub.com.br",
         "loginEndpoint": "/api-acl/authentication/login",
         "users": {
             "validUser": {
@@ -41,12 +49,16 @@
             "invalidUser": {
                 "usernameInvalid": "invalido@teste.com",
                 "passwordInvalid": "senhaerrada"
+            },
+            "rootUser": {
+                "usernameValid": "root",
+                "passwordValid": "Tectoy@2024"
             }
         }
     },
     "hml": {
         "name": "hml",
-        "apiUrl": "https://api.gateway.hml.mdm-hub.com",
+        "apiUrl": "https://api.gateway.hml.mdm-hub.com.br",
         "loginEndpoint": "/api-acl/authentication/login",
         "users": {
             "validUser": {
@@ -56,6 +68,10 @@
             "invalidUser": {
                 "usernameInvalid": "",
                 "passwordInvalid": ""
+            },
+            "rootUser": {
+                "usernameValid": "",
+                "passwordValid": ""
             }
         }
     }

@@ -1,14 +1,9 @@
-// ============================================
-// API WRAPPER - SOMENTE BACKEND
-// ============================================
-
 class ApiWrapper {
     constructor() {
         this.environments = null
         this.currentEnvironment = null
     }
 
-    // Carregar configurações dos ambientes
     load() {
         return cy.fixture('environments').then((environments) => {
             this.environments = environments
@@ -16,44 +11,45 @@ class ApiWrapper {
         })
     }
 
-    // Definir ambiente atual
     setEnvironment(envName) {
         if (!this.environments[envName]) {
-            throw new Error(`Ambiente "${envName}" não encontrado. Opções: ${Object.keys(this.environments).join(', ')}`)
+            throw new Error(`Environment "${envName}" not found. Options: ${Object.keys(this.environments).join(', ')}`)
         }
         this.currentEnvironment = envName
         Cypress.env('environment', envName)
-        cy.log(`🌍 API Ambiente: ${envName}`)
+        cy.log(`API Environment: ${envName}`)
         return this
     }
 
-    // Obter configuração do ambiente atual
     getCurrent() {
         const envName = this.currentEnvironment || Cypress.env('environment') || 'production'
         return this.environments[envName]
     }
 
-    // Obter configuração de um ambiente específico
     get(envName) {
         return this.environments[envName]
     }
 
-    // Obter URL da API
     getApiUrl() {
         return this.getCurrent().apiUrl
     }
 
-    // Obter usuário válido
+    getLoginEndpoint() {
+        return this.getCurrent().loginEndpoint || '/api-acl/authentication/login'
+    }
+
     getValidUser() {
         return this.getCurrent().users.validUser
     }
 
-    // Obter usuário inválido
     getInvalidUser() {
         return this.getCurrent().users.invalidUser
     }
 
-    // Listar todos ambientes
+    getRootUser() {
+        return this.getCurrent().users.rootUser
+    }
+
     listEnvironments() {
         return Object.keys(this.environments)
     }

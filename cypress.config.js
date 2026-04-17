@@ -16,9 +16,21 @@ module.exports = defineConfig({
         supportFile: 'cypress/support/e2e.js',
         experimentalRunAllSpecs: true,
     },
+    reporter: 'mochawesome',
+    reporterOptions: {
+        reportDir: 'cypress/reports',
+        overwrite: false,
+        html: true,
+        json: true,
+        timestamp: 'yyyy-mm-dd_HHMMss',
+        reportFilename: 'report',
+        charts: true,
+        code: true,
+        inline: true
+    },
     defaultCommandTimeout: 10000,
     requestTimeout: 10000,
     responseTimeout: 10000,
     video: false,
-    screenshotOnRunFailure: false,
+    screenshotOnRunFailure: true,
 });

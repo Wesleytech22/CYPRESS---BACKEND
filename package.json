@@ -10,10 +10,17 @@
     "cy:prod": "cypress run --env environment=production",
     "cy:hml": "cypress run --env environment=hml",
     "cy:login": "cypress run --spec 'cypress/e2e/api/login.cy.js'",
-    "cy:login:record": "cypress run --record --key 75048894-4303-410c-9c07-8645e80ea67d --spec 'cypress/e2e/api/login.cy.js'"
+    "cy:login:record": "cypress run --record --key 75048894-4303-410c-9c07-8645e80ea67d --spec 'cypress/e2e/api/login.cy.js'",
+    "cy:report": "cypress run --reporter mochawesome",
+    "cy:report:open": "npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json && npx mochawesome-report-generator cypress/reports/report.json -o cypress/reports"
   },
   "devDependencies": {
-    "cypress": "^15.14.0"
+    "@neuralegion/cypress-har-generator": "^5.17.1",
+    "cypress": "^15.14.0",
+    "cypress-plugin-api": "^2.11.2",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.1.1",
+    "mochawesome-report-generator": "^6.3.2"
   },
   "keywords": [
     "cypress",
