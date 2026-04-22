@@ -2,14 +2,20 @@ import api from './api-wrapper'
 import './corp_global/corp'
 import { Headers, Endpoints } from './helper'
 
-Cypress.Commands.add('apiLogin', (environment = 'dev') => {
+Cypress.Commands.add('apiLogin', (environment = null) => {
+    // ⭐ Lê o ambiente da linha de comando ou usa padrão 'qa'
+    const env = environment || Cypress.env('environment') || 'qa'
+
     cy.then(() => api.load()).then(() => {
-        api.setEnvironment(environment)
+        api.setEnvironment(env)
         const user = api.getRootUser()
         const apiUrl = api.getApiUrl()
 
         Cypress.env('API_URL', apiUrl)
         Cypress.env('TENANT_CODE', 'portal')
+        Cypress.env('environment', env)
+
+        cy.log(`🌍 Environment: ${env}`)
         cy.log(`✅ API_URL set to: ${Cypress.env('API_URL')}`)
         cy.log(`✅ TENANT_CODE set to: ${Cypress.env('TENANT_CODE')}`)
 
@@ -35,6 +41,7 @@ Cypress.Commands.add('apiLogin', (environment = 'dev') => {
                 Cypress.env('authToken', token)
                 cy.log('✅ Login successful')
                 cy.log(`🔑 Token: ${token.substring(0, 50)}...`)
+                cy.log(`🌍 Connected to: ${env}`)
             } else {
                 cy.log('❌ Login failed with status:', response.status)
                 cy.log(`📦 Response body: ${JSON.stringify(response.body, null, 2)}`)

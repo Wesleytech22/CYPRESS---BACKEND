@@ -1,11 +1,13 @@
 import { Headers, Params, Endpoints } from '../helper'
 
+let corporationCounter = 1
+
 Cypress.Commands.add('createCorporationActive', (customPayload = {}) => {
-    const timestamp = new Date().toISOString().slice(0, 19).replace(/[-:T]/g, '')
-    const corporationName = `CypressCorp${timestamp}`
+    const testName = `cypressteste${String(corporationCounter).padStart(2, '0')}`
+    corporationCounter++
 
     const defaultPayload = {
-        name: corporationName,
+        name: testName,
         status: 1,
         limitEquipmentsActive: 2,
         integrationContract: ""
@@ -19,7 +21,8 @@ Cypress.Commands.add('createCorporationActive', (customPayload = {}) => {
             throw new Error('API_URL not set. Please run cy.apiLogin() first.')
         }
 
-        cy.log(`Creating corporation: ${corporationName}`)
+        cy.log(`Creating corporation: ${testName}`)
+        cy.log(`Payload: ${JSON.stringify(payload, null, 2)}`)
 
         cy.request({
             method: 'POST',
@@ -29,16 +32,17 @@ Cypress.Commands.add('createCorporationActive', (customPayload = {}) => {
             failOnStatusCode: false
         }).then((response) => {
             cy.log(`Response Status: ${response.status}`)
+            cy.log(`Response Body: ${JSON.stringify(response.body, null, 2)}`)
 
             if (response.status === 200 || response.status === 201) {
                 cy.log('✅ Corporation created successfully')
-                cy.log(`Corporation name: ${corporationName}`)
+                cy.log(`Corporation name: ${testName}`)
 
                 cy.wait(1000)
 
                 cy.getAllCorporations().then(() => {
                     cy.get('@getAllCorporationsResponse').then((listResponse) => {
-                        const found = listResponse.body?.items?.find(item => item.name === corporationName)
+                        const found = listResponse.body?.items?.find(item => item.name === testName)
                         if (found) {
                             Cypress.env('corporationId', found.id)
                             cy.log('✅ Corporation ID found:', found.id)

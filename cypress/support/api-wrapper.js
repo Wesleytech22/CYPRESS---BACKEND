@@ -22,10 +22,6 @@ class ApiWrapper {
         return this
     }
 
-    getApiUrl() {
-        return this.getCurrent().apiUrl
-    }
-
     getCurrent() {
         const envName = this.currentEnvironment || Cypress.env('environment') || 'production'
         return this.environments[envName]

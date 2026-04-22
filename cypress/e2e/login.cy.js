@@ -1,7 +1,7 @@
 import api from '../support/api-wrapper'
 
 describe('Login API - Backend', () => {
-    let environment = Cypress.env('environment') || 'dev'
+    let environment = Cypress.env('environment') || 'qa'
 
     before(() => {
         api.load()
