@@ -1,5 +1,6 @@
 import api from './api-wrapper'
 import './corp_global/corp'
+import './company_global/company'
 import { Headers, Endpoints } from './helper'
 
 Cypress.Commands.add('apiLogin', (environment = null) => {
