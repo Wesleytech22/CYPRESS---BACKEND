@@ -5,7 +5,7 @@ module.exports = defineConfig({
     e2e: {
         setupNodeEvents(on, config) {
             on('task', {
-                log(message) {
+                debug(message) {
                     console.log(message);
                     return null;
                 }

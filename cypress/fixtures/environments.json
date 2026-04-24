@@ -4,8 +4,8 @@
         "apiUrl": "https://api.gateway.qa.mdm-hub.com.br",
         "users": {
             "validUser": {
-                "usernameValid": "wesley.rodrigues@amazonasinovare.com.br",
-                "passwordValid": "Tectoy2026@"
+                "usernameValid": "WesleyMD",
+                "passwordValid": "Wesley5803@"
             },
             "invalidUser": {
                 "usernameInvalid": "invalido@teste.com",
@@ -25,8 +25,8 @@
                 "passwordValid": "Tectoy@2024"
             },
             "validUser": {
-                "usernameValid": "usuario_valido",
-                "passwordValid": "senha_valida"
+                "usernameValid": "WesleyMD",
+                "passwordValid": "Wesley5803@"
             },
             "invalidUser": {
                 "usernameValid": "usuario_invalido",

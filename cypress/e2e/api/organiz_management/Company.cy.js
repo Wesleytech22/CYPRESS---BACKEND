@@ -1,6 +1,6 @@
 describe('Company API - Backend', () => {
     before(() => {
-        cy.apiLogin()
+        cy.loginCorporation()
         cy.wait(1000)
     })
 
@@ -12,7 +12,7 @@ describe('Company API - Backend', () => {
 
             const corporationId = Cypress.env('corporationId')
             expect(corporationId).to.not.be.undefined
-            cy.log(`✅ Corporation ID: ${corporationId}`)
+            cy.log(`Corporation ID: ${corporationId}`)
         })
     })
 
@@ -29,7 +29,7 @@ describe('Company API - Backend', () => {
 
             if (response.body && response.body.id) {
                 expect(response.body).to.have.property('id')
-                cy.log(`✅ Company created with ID: ${response.body.id}`)
+                cy.log(`Company created with ID: ${response.body.id}`)
             }
         })
     })
@@ -43,7 +43,7 @@ describe('Company API - Backend', () => {
             expect(response.status).to.eq(200)
             if (response.body && response.body.items) {
                 expect(response.body.items).to.be.an('array')
-                cy.log(`✅ Found ${response.body.items.length} companies`)
+                cy.log(`Found ${response.body.items.length} companies`)
             }
         })
     })
@@ -52,7 +52,7 @@ describe('Company API - Backend', () => {
         const companyId = Cypress.env('companyId')
 
         if (!companyId) {
-            cy.log('⚠️ No company ID found - run create test first')
+            cy.log('No company ID found - run create test first')
             expect(true).to.eq(true)
             return
         }
@@ -62,7 +62,7 @@ describe('Company API - Backend', () => {
             expect(response.status).to.eq(200)
             expect(response.body).to.have.property('id')
             expect(response.body.id).to.eq(companyId)
-            cy.log(`✅ Company retrieved: ${response.body.name}`)
+            cy.log(`Company retrieved: ${response.body.name}`)
         })
     })
 })

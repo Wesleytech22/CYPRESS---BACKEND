@@ -4,7 +4,6 @@ import './company_global/company'
 import { Headers, Endpoints } from './helper'
 
 Cypress.Commands.add('apiLogin', (environment = null) => {
-    // ⭐ Lê o ambiente da linha de comando ou usa padrão 'qa'
     const env = environment || Cypress.env('environment') || 'qa'
 
     cy.then(() => api.load()).then(() => {
@@ -16,17 +15,17 @@ Cypress.Commands.add('apiLogin', (environment = null) => {
         Cypress.env('TENANT_CODE', 'portal')
         Cypress.env('environment', env)
 
-        cy.log(`🌍 Environment: ${env}`)
-        cy.log(`✅ API_URL set to: ${Cypress.env('API_URL')}`)
-        cy.log(`✅ TENANT_CODE set to: ${Cypress.env('TENANT_CODE')}`)
+        cy.log(`Environment: ${env}`)
+        cy.log(`API_URL set to: ${Cypress.env('API_URL')}`)
+        cy.log(`TENANT_CODE set to: ${Cypress.env('TENANT_CODE')}`)
 
         const requestBody = {
             username: user.usernameValid,
             password: user.passwordValid
         }
 
-        cy.log(`📤 REQUEST: POST ${apiUrl}${Endpoints.auth.login}`)
-        cy.log(`📦 BODY: ${JSON.stringify(requestBody, null, 2)}`)
+        cy.log(`REQUEST: POST ${apiUrl}${Endpoints.auth.login}`)
+        cy.log(`BODY: ${JSON.stringify(requestBody, null, 2)}`)
 
         cy.request({
             method: 'POST',
@@ -34,22 +33,64 @@ Cypress.Commands.add('apiLogin', (environment = null) => {
             body: requestBody,
             failOnStatusCode: false
         }).then((response) => {
-            cy.log(`📥 RESPONSE: Status ${response.status}`)
+            cy.log(`RESPONSE: Status ${response.status}`)
 
             if (response.status === 200) {
                 const token = response.body.access_token
                 cy.wrap(token).as('authToken')
                 Cypress.env('authToken', token)
-                cy.log('✅ Login successful')
-                cy.log(`🔑 Token: ${token.substring(0, 50)}...`)
-                cy.log(`🌍 Connected to: ${env}`)
+                cy.log('Login successful')
+                cy.log(`Token: ${token.substring(0, 50)}...`)
+                cy.log(`Connected to: ${env}`)
             } else {
-                cy.log('❌ Login failed with status:', response.status)
-                cy.log(`📦 Response body: ${JSON.stringify(response.body, null, 2)}`)
+                cy.log('Login failed with status:', response.status)
+                cy.log(`Response body: ${JSON.stringify(response.body, null, 2)}`)
             }
         })
     })
 })
+
+Cypress.Commands.add('loginCorporation', (environment = null) => {
+    const env = environment || Cypress.env('environment') || 'qa'
+    cy.then(() => api.load()).then(() => {
+        api.setEnvironment(env)
+        const user = api.getRootUser()
+        const apiUrl = api.getApiUrl()
+
+        Cypress.env('API_URL', apiUrl)
+        Cypress.env('TENANT_CODE', 'portal')
+        Cypress.env('environment', env)
+
+        const login_access_corporation = {
+            username: user.usernameValid,
+            password: user.passwordValid
+        }
+
+        cy.debug(`REQUEST: POST ${apiUrl}${Endpoints.auth.login}`)
+        cy.debug(`BODY: ${JSON.stringify(login_access_corporation, null, 2)}`)
+
+        cy.request({
+            method: 'POST',
+            url: `${apiUrl}${Endpoints.auth.login}`,
+            body: login_access_corporation
+        }).then((response) => {
+            cy.log(`StatusCode: ${response.status}`)
+            if (response.status === 200) {
+                const token = response.body.access_token
+                cy.wrap(token).as('authTokenCorporation')
+                Cypress.env('authTokenCorporation', token)
+                cy.log('Login successful')
+                cy.log(`Token: ${token.substring(0, 50)}...`)
+                cy.log(`Connected to: ${env}`)
+            } else {
+                cy.log(`Failure on login in the ${env}`)
+                cy.log(`Status Code: ${response.status}`)
+                cy.log(`Response body: ${JSON.stringify(response.body, null, 2)}`)
+            }
+        })
+    })
+})
+
 
 Cypress.Commands.add('apiRequest', (method, endpoint, options = {}) => {
     return cy.get('@authToken', { timeout: 10000 }).then((token) => {
@@ -63,8 +104,8 @@ Cypress.Commands.add('apiRequest', (method, endpoint, options = {}) => {
         }
 
         const tenantCode = options.tenantCode || Cypress.env('TENANT_CODE') || 'portal'
-        cy.log(`🔧 API_URL from env: ${apiUrl}`)
-        cy.log(`🔧 TENANT_CODE: ${tenantCode}`)
+        cy.log(`API_URL from env: ${apiUrl}`)
+        cy.log(`TENANT_CODE: ${tenantCode}`)
 
         const requestOptions = {
             method,
@@ -75,17 +116,17 @@ Cypress.Commands.add('apiRequest', (method, endpoint, options = {}) => {
             failOnStatusCode: options.failOnStatusCode || false
         }
 
-        cy.log(`📤 REQUEST: ${method} ${requestOptions.url}`)
-        cy.log(`📋 HEADERS: ${JSON.stringify(requestOptions.headers, null, 2)}`)
+        cy.log(`REQUEST: ${method} ${requestOptions.url}`)
+        cy.log(`HEADERS: ${JSON.stringify(requestOptions.headers, null, 2)}`)
         if (requestOptions.body) {
-            cy.log(`📦 BODY: ${JSON.stringify(requestOptions.body, null, 2)}`)
+            cy.log(`BODY: ${JSON.stringify(requestOptions.body, null, 2)}`)
         }
         if (Object.keys(requestOptions.qs).length > 0) {
-            cy.log(`🔍 QUERY PARAMS: ${JSON.stringify(requestOptions.qs, null, 2)}`)
+            cy.log(`QUERY PARAMS: ${JSON.stringify(requestOptions.qs, null, 2)}`)
         }
 
         return cy.request(requestOptions).then((response) => {
-            cy.log(`📥 RESPONSE: ${method} ${endpoint} - Status: ${response.status}`)
+            cy.log(`RESPONSE: ${method} ${endpoint} - Status: ${response.status}`)
             return response
         })
     })
@@ -108,7 +149,7 @@ Cypress.Commands.add('apiLogout', () => {
     })
     cy.wrap(null).as('authToken')
     Cypress.env('authToken', null)
-    cy.log('✅ Logged out and token cleared')
+    cy.log('Logged out and token cleared')
 })
 
 Cypress.Commands.add('isLoggedIn', () => {

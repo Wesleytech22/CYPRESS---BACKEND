@@ -23,7 +23,7 @@ class ApiWrapper {
     }
 
     getCurrent() {
-        const envName = this.currentEnvironment || Cypress.env('environment') || 'production'
+        const envName = this.currentEnvironment || Cypress.env('environment') || 'qa'
         return this.environments[envName]
     }
 

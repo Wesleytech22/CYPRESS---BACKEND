@@ -1,13 +1,13 @@
 import api from '../support/api-wrapper'
 
-describe('Login API - Backend', () => {
-    let environment = Cypress.env('environment') || 'qa'
+describe('Login Root API - Backend', () => {
+    let environment = Cypress.env('environment') || 'dev'
 
     before(() => {
         api.load()
     })
 
-    it('Should login successfully via API', () => {
+    it('Should login successfully via API root', () => {
         api.setEnvironment(environment)
         const user = api.getRootUser()
         const apiUrl = api.getApiUrl()
